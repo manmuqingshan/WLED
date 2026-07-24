@@ -53,7 +53,7 @@ static dmx_config_t createConfig()
   config.product_category = RDM_PRODUCT_CATEGORY_FIXTURE;
   config.software_version_id = VERSION;
 
-#if 0
+#if ESP_IDF_VERSION_MAJOR < 5
   // softhack007: ToDO: current code from main does not work in V5 yet
   const std::string dmxWledVersionString = "WLED_V" + std::to_string(VERSION);
   strncpy(config.software_version_label, dmxWledVersionString.c_str(), 32);
@@ -84,8 +84,8 @@ static dmx_config_t createConfig()
   // rdm personalities are numbered from 1, thus we can just set the DMXMode directly.
   config.current_personality = DMXMode;
   #else
-    // fallback code
-    const std::string DmxVersionString = "WLED_V" + std::to_string(VERSION);
+    // fallback code for V5, without config.personalities[]
+    static const std::string DmxVersionString = "WLED_V" + std::to_string(VERSION);   // static needed, to prevent that config.software_version_label becomes a dangling reference
     config.software_version_label = DmxVersionString.c_str();
   #endif
 
