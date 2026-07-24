@@ -51,7 +51,7 @@ static dmx_config_t createConfig()
   dmx_config_t config = DMX_CONFIG_DEFAULT;
   config.model_id = 0;
   config.product_category = RDM_PRODUCT_CATEGORY_FIXTURE;
-  config.software_version_id = VERSION;
+  config.software_version_id = uint32_t(VERSION);
 
 #if ESP_IDF_VERSION_MAJOR < 5
   // softhack007: ToDO: current code from main does not work in V5 yet
